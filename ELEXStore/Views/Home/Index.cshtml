@@ -1,0 +1,248 @@
+﻿@using Data.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .img1 {
+        max-width: 250px;
+        height: 250px;
+    }
+    .logo {
+        max-height: 200px;
+        max-width: 200px;
+    }
+</style>
+
+
+<div class="slider-area">
+    <div class="zigzag-bottom"></div>
+    <div id="slide-list" class="carousel carousel-fade slide" data-ride="carousel">
+
+        <div class="slide-bulletz">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="carousel-indicators slide-indicators">
+                            <li data-target="#slide-list" data-slide-to="0" class="active"></li>
+                            <li data-target="#slide-list" data-slide-to="1"></li>
+                            <li data-target="#slide-list" data-slide-to="2"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="single-slide">
+                    <div class="slide-bg slide-one"></div>
+                    <div class="slide-text-wrapper">
+                        <div class="slide-text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-6">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="single-slide">
+                    <div class="slide-bg slide-two"></div>
+                    <div class="slide-text-wrapper">
+                        <div class="slide-text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-6">
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="single-slide">
+                    <div class="slide-bg slide-three"></div>
+                    <div class="slide-text-wrapper">
+                        <div class="slide-text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-6">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End slider area -->
+<div class="promo-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo">
+                    <i class="fa fa-refresh"></i>
+                    <p>30 Days return</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo">
+                    <i class="fa fa-truck"></i>
+                    <p>Free shipping</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo">
+                    <i class="fa fa-lock"></i>
+                    <p>Secure payments</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo">
+                    <i class="fa fa-gift"></i>
+                    <p>New products</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End promo area -->
+<div class="maincontent-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="latest-product">
+                    <h2 class="section-title">Special Products</h2>
+                    <div class="product-carousel ">
+                        @foreach (Product product in ViewBag.SpecialProducts)
+                        {
+                            <div class="single-product product">
+                                <div class="product-f-image">
+                                    <img src="/Data/Images/images/@product.Image" class="img1" alt="" id="@product.ID">
+                                    <div class="product-hover">
+                                        <a href="javascript:void(0);" class="add-to-cart-link add-to-cart" data-id="@product.ID"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="@Url.Action("Details","Products")/@product.ID" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2>
+                                    <a href="@Url.Action("Details","Products")/@product.ID">@product.Name</a>
+                                </h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>@(product.Price - product.Price * product.Discount / 100)</ins> <del>@product.Price</del>
+                                </div>
+                            </div>
+                        }
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End main content area -->
+<div class="brands-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="brand-wrapper">
+                    <h2 class="section-title">Suppliers</h2>
+                    <div class="brand-list">
+                        @foreach (Supplier supplier in ViewBag.Supplier)
+                        {
+                            <img src="/Data/Images/images/@supplier.Logo" class="logo" style="">
+                        }
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End brands area -->
+
+<div class="product-widget-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Top Sellers</h2>
+                    <a href="" class="wid-view-more">View All</a>
+                    @foreach (Product product in ViewBag.TopSells)
+                    {
+                        <div class="single-wid-product">
+                            <a href="@Url.Action("Details","Products")/@product.ID"><img src="/Data/Images/images/@product.Image" alt="" class="product-thumb"></a>
+                            <h2><a href="@Url.Action("Details","Products")/@product.ID">@product.Name</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>@(product.Price - product.Price * product.Discount / 100)</ins> <del>@product.Price</del>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Top Views</h2>
+                    <a href="#" class="wid-view-more">View All</a>
+                    @foreach (Product product in ViewBag.TopViews)
+                    {
+                        <div class="single-wid-product">
+                            <a href="@Url.Action("Details","Products")/@product.ID"><img src="/Data/Images/images/@product.Image" alt="" class="product-thumb"></a>
+                            <h2><a href="@Url.Action("Details","Products")/@product.ID">@product.Name</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                            <ins class="productPrice">@(product.Price - product.Price * product.Discount / 100)</ins> <del>@(product.Price)</del>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Top New</h2>
+                    <a href="#" class="wid-view-more">View All</a>
+                    @foreach (Product product in ViewBag.News)
+                    {
+                        <div class="single-wid-product">
+                            <a href="@Url.Action("Details","Products")/@product.ID"><img src="/Data/Images/images/@product.Image" alt="" class="product-thumb"></a>
+                            <h2><a href="@Url.Action("Details","Products")/@product.ID">@product.Name</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>@(product.Price - product.Price * product.Discount / 100)</ins> <del>@product.Price</del>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End product widget area -->

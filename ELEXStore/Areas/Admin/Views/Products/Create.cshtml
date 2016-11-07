@@ -1,0 +1,107 @@
+﻿@model Data.Models.Product
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TitleContent{
+    <h1><i class="icon-dashboard"></i> Create Product</h1>
+}
+@section JSFooter{
+    <script>
+      CKEDITOR.replace('txtDescription', {
+            customConfig: '/Content/JS/Plugin/ckeditor/config.js'
+        });
+        $('#txtImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $('#txtImage').val(fileUrl);
+                $('#img').css("display", "block");
+                $('#img').attr("src", fileUrl);
+            };
+            finder.popup();
+        });
+    </script>
+    
+   
+}
+<div class="widget">
+    <h3 class="section-title first-title">
+        <i class="icon-table"></i>Product Info
+    </h3>
+    <div class="widget-content-white glossed">
+        <div class="padded">
+            @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", id = "form-product-insert" }))
+            {
+                <h3 class="form-title form-title-first">
+                    <i class="icon-terminal"></i> Input Form
+                </h3>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Product Name</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Name, new {@class = "form-control", @name = "Name", id = "txtName"})</div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Price</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Price, new {@class = "form-control", @name = "Price", id = "txtPrice",@type="number"})</div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Image</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(model => model.Image, new {@class = "form-control", @id = "txtImage"})
+                        <div class="img-responsive" style="padding-top: 5px">
+                            <img id="img" src="" style="width: 200px; height: 160px; display: none"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Product Date</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.ProductDate, new {@class = "form-control", @name = "Date", id = "txtDate",@Value=DateTime.Now.ToShortDateString(),@readonly=true})</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Description</label>
+                    <div class="col-xs-10">@Html.TextAreaFor(model => model.Description, new {@class = "form-control", @name = "Description", id = "txtDescription"})</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Category</label>
+                    <div class="col-xs-3">@Html.DropDownListFor(model => model.CategoryID,null, new {@class = "form-control"})</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Supplier</label>
+                    <div class="col-xs-3">@Html.DropDownListFor(model => model.SupplierID,null, new {@class = "form-control"})</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Quantity</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @name = "Quantity", id = "txtQuantity", @type = "number" })</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Discount</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Discount, new { @class = "form-control", @name = "Discount", id = "txtDiscount", @type = "number" })</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Special</label>
+                    <div class="col-xs-1">@Html.CheckBoxFor(model => model.Special)</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Views</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Views, new {@class = "form-control", @name = "Views", @id = "txtViews", @Value = "0", @readonly = true})</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Sells</label>
+                    <div class="col-xs-10">@Html.TextBoxFor(model => model.Sells, new {@class = "form-control", @name = "Sells", @id = "txtSells", @Value = "0", @readonly = true})</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-10 pull-right">
+                        <button type="submit" onclick="form.action = '/Admin/Products/Create'" class="btn btn-primary">Create</button>
+                        <a href="/Admin/Products/Index" class="btn btn-warning">Cancel</a>
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</div>

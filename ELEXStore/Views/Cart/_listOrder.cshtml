@@ -1,0 +1,64 @@
+﻿@model List<ELEXStore.Models.CartItem>
+<table cellspacing="0" class="shop_table cart">
+    <thead>
+        <tr>
+            <th class="product-remove">&nbsp;</th>
+            <th class="product-thumbnail">Image</th>
+            <th class="product-name">Product</th>
+            <th class="product-price">Price</th>
+            <th class="product-quantity">Quantity</th>
+            <th class="product-subtotal">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var cart in Model)
+            {
+                <tr class="cart_item">
+                    <td class="product-remove">
+                        <a title="Remove this item" class="remove btn_delete" href="javascript:void(0)" data-id="@cart.Product.ID">×</a>
+                    </td>
+
+                    <td class="product-thumbnail">
+                        <a href="single-product.html">
+                            <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="/Data/Images/images/@cart.Product.Image">
+                        </a>
+                    </td>
+
+                    <td class="product-name">
+                        <a href="@Url.Action("Details", new {Controller = "Products", @cart.Product.ID})">@cart.Product.Name</a>
+                    </td>
+
+                    <td class="product-price">
+                        <span class="amount">@(cart.Product.Price-cart.Product.Price*cart.Product.Discount/100) <span style="font-weight: bold; color: red;">USD</span></span>
+                    </td>
+
+                    <td class="product-quantity">
+                        @cart.Quantity
+                    </td>
+
+                    <td class="product-subtotal">
+                        <span class="amount">@(cart.Quantity * (cart.Product.Price-cart.Product.Price*cart.Product.Discount/100))<span style="font-weight: bold; color: red;"> USD</span></span>
+                    </td>
+                </tr>
+
+            }
+            <tr>
+                <td class="actions" colspan="6">
+                    <a href="javascript:void(0)" class="add_to_cart_button" id="btn_delete_all">Delete Cart</a>
+                    <a href="@Url.Action("CheckOut","Cart")" class="add_to_cart_button">Check out</a>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="6">
+                    <span style="color: red; font-weight: bold; font-size: 18px">Cart not have a Product</span>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Data.Models
+@using ELEXStore.Common
+@using ELEXStore.Models
+@model Data.Models.Product
+<style>
+    .img1 {
+        max-width: 250px;
+        height: 250px;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('#txtQuantity').on('change keyup', function() {
+            var max = parseInt($("#txtQuantity").attr("max"));
+
+            if (parseInt($(this).val()) > max ) {
+                var sanitized = $(this).val().replace($(this).val(), max);
+                $(this).val(sanitized);
+            }
+        });
+        $('#txtQuantity').on('change', function () {
+            var max = parseInt($("#txtQuantity").attr("min"));
+            var value = $("#txtQuantity").val();
+            if (value === "") {
+                var abc = $(this).val().replace($(this).val(), max);
+                $(this).val(abc);
+            }
+        });
+        
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode!==8 && charCode!==32 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Shop</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+              @{Html.RenderAction("_SearchBox", "Products");}
+
+                @{Html.RenderAction("_RandomProducts", "Products");}
+        
+            </div>
+
+            <div class="col-md-8">
+                <div class="product-content-right">
+                    <div class="product-breadcroumb">
+                        <a href="@Url.Action("Index","Home")">Home</a>
+                        <a href="@Url.Action("Category",new{Controller="Products"})/@Model.CategoryID">@Model.Category.Name</a>
+                        <a href="">@Model.Name</a>
+                    </div>
+
+                    <div class="row product">
+                        <div class="col-sm-6">
+                            <div class="product-images">
+                                <div class="product-main-img">
+                                    <img src="/Data/Images/images/@Model.Image" alt="" id="@Model.ID">
+                                </div>
+
+                         
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">@Model.Name</h2>
+                                <div class="product-inner-price">
+                                    <ins>@(Model.Price - Model.Price * Model.Discount / 100)</ins> <del>@Model.Price</del> 
+                                </div>
+
+                    
+                                    <div class="quantity">
+                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="0" name="quantity" min="0"
+                                               max="@{
+                                                        CartItem first = null;
+                                                        foreach (var x in CommonConstants.listCart)
+                                                        {
+                                                            if (x.Product.ID == Model.ID)
+                                                            {
+                                                                first = x;
+                                                                break;
+                                                            }
+                                                        }
+                                                        ;
+                                                        if (first != null)
+                                                        {
+                                                            @(Model.Quantity - first.Quantity)
+                                                        }
+                                                        else
+                                                        {
+                                                            @(Model.Quantity)}
+                                                    }"
+                                               step="1" id="txtQuantity" onkeypress="return isNumberKey(event)">
+
+                                    </div>
+                                <button class="add-to-cart add_to_cart_button" data-id="@Model.ID">Add to cart</button>
+
+                                <div class="product-inner-category">
+                                    <p>Category: <a href="">@Model.Category.Name</a></p>
+                                </div>
+
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                                        <li role="presentation"><a href="#stock" aria-controls="stock" role="tab" data-toggle="tab">Stock</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                            @Html.Raw(Model.Description)
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade in" id="stock">
+                                            <span style="font-weight: bold;font-size: 20px">• In stock: @Html.Raw(Model.Quantity) </span> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="related-products-wrapper">
+                        <h2 class="related-products-title">Related Products</h2>
+                        <div class="related-products-carousel">
+                            @foreach (Product product in ViewBag.RelatedProducts)
+                            {
+                                <div class="single-product product">
+                                    <div class="product-f-image">
+                                        <img src="/Data/Images/images/@product.Image" class="img1" alt="" id="@product.ID">
+                                        <div class="product-hover">
+                                            <a href="@Url.Action("Details", new{Controller="Products",@product.ID})" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+                                    <h2>
+                                        <a href="@Url.Action("Details", new{Controller="Products",@product.ID})">@product.Name</a>
+                                    </h2>
+                                    <div class="product-carousel-price">
+                                        <ins>@(product.Price - product.Price * product.Discount / 100)</ins> <del>@product.Price</del>
+                                    </div>
+                                </div>
+                            }
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

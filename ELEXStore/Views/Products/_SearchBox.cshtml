@@ -1,0 +1,35 @@
+﻿<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+<script>
+    $(function () {
+
+        $("#search").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Products/SearchProducts",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name,value2:item.ID };
+                        }));
+                    }
+                });
+            }, select: function (event, ui) {
+                $("#searchResult").val(ui.item.value2);
+            }
+
+    });
+
+    });
+</script>
+<div class="single-sidebar">
+    <h2 class="sidebar-title">Search Products</h2>
+    @using (Html.BeginForm("SearchResult", "Products", "POST"))
+    {
+        @Html.TextBox("searchTerm", null, new { id = "search", @placeholder="Search a product..." })
+        @Html.Hidden("SearchResult", null, new { id = "searchResult" })
+        <input type="submit" value="Details">
+    }
+</div>

@@ -1,0 +1,17 @@
+﻿@using Data.Models
+@model System.Collections.Generic.List<Data.Models.Product>
+
+<div class="single-sidebar">
+    <h2 class="sidebar-title">Random Products</h2>
+    @foreach (Product product in Model)
+    {
+        <div class="thubmnail-recent">
+            <img src="/Data/Images/images/@product.Image" class="recent-thumb" alt="">
+            <h2><a href="@Url.Action("Details", new{Controller="Products",@product.ID})">@product.Name</a></h2>
+            <div class="product-sidebar-price">
+                <ins>@(product.Price - product.Price * product.Discount / 100)</ins> <del>@product.Price</del>
+            </div>
+        </div>
+    }
+
+</div>

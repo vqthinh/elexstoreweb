@@ -1,0 +1,8 @@
+﻿@using ELEXStore.Common
+@using ELEXStore.Models
+<div class="col-sm-6">
+    <div class="shopping-item">
+        <a href="@Url.Action("Index", "Cart")">
+            Cart - <span class="cart-amunt productPrice" id="productPrice">@CommonConstants.listCart.Sum(x => x.Quantity * (x.Product.Price-x.Product.Price*x.Product.Discount/100))</span><i class="fa fa-shopping-cart cart_anchor"></i> <span class="product-count" id="productCount">@CommonConstants.listCart.Sum(x=>x.Quantity) </span></a>
+    </div>
+</div>

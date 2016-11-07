@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section TitleContent
+{
+    <h1><i class="icon-bar-chart"></i> Dashboard</h1>
+}
+<div class="widget">
+    <div class="alert alert-warning alert-dismissable">
+        <i class="icon-exclamation-sign"></i> <strong>Welcome!</strong> This is a dashboard of the powerful Electronics Store.
+    </div>
+</div>
+<div class="widget">
+    <h3 class="section-title first-title"><i class="icon-tasks"></i> Statistics</h3>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 text-center">
+            <div class="widget-content-blue-wrapper changed-up">
+                <div class="widget-content-blue-inner padded">
+                    <div class="pre-value-block"><i class="icon-dashboard"></i> Total Products Views</div>
+                    <div class="value-block">
+                        <div class="value-self">@if (ViewBag.Views == null)
+                        {
+                            <span>0</span>
+                        }
+                        else
+                        {
+                            <span>@ViewBag.Views</span>
+                        }</div>
+                        <div class="value-sub">Views</div>
+                    </div>
+                    <span class="dynamicsparkline">Loading..</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 text-center">
+            <div class="widget-content-blue-wrapper changed-up">
+                <div class="widget-content-blue-inner padded">
+                    <div class="pre-value-block"><i class="icon-briefcase"></i> Total Orders</div>
+                    <div class="value-block">
+                        <div class="value-self">@if (ViewBag.Orders == null)
+                                                {
+                            <span>0</span>
+                                                }
+                                                else
+                                                {
+                            <span>@ViewBag.Orders</span>
+                                                }</div>
+                        <div class="value-sub">Unprocessed</div>
+                    </div>
+                    <span class="dynamicsparkline">Loading..</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 text-center hidden-md">
+            <div class="widget-content-blue-wrapper changed-up">
+                <div class="widget-content-blue-inner padded">
+                    <div class="pre-value-block"><i class="icon-signin"></i> Sold Products</div>
+                    <div class="value-block">
+                        <div class="value-self">@if (ViewBag.Solds == null)
+                                                {
+                                                    <span>0</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@ViewBag.Solds</span>
+                                                }</div>
+                        <div class="value-sub">Products</div>
+                    </div>
+                    <span class="dynamicsparkline">Loading..</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 text-center">
+            <div class="widget-content-blue-wrapper changed-up">
+                <div class="widget-content-blue-inner padded">
+                    <div class="pre-value-block"><i class="icon-money"></i>Profit</div>
+                    <div class="value-block">
+                        <div class="value-self">@if (ViewBag.Profit == null)
+                                                {
+                            <span>0</span>
+                                                }
+                                                else
+                                                {
+                            <span>@ViewBag.Profit</span>
+                                                }</div>
+                        <div class="value-sub">USD</div>
+                    </div>
+                    <span class="dynamicbars">Loading..</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

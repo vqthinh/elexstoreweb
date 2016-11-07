@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using PagedList.Mvc
+@model PagedList.IPagedList<Data.Models.Product>
+<style>
+    .img1 {
+        max-width: 250px;
+        height: 250px;
+    }
+</style>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>
+                        @{
+
+                            if (Model.Any())
+                            {
+                                @Model.First().Category.Name
+                            }
+                            else
+                            {
+                                Response.Redirect(Url.Action("Index","Home"));
+                            }
+                        }
+
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+    <div class="row">
+        @foreach (var Product in Model)
+        {
+            <div class="col-md-3 col-sm-6" style="max-height: 409px">
+                <div class="single-shop-product product">
+                    <div class="product-upper">
+                        <img src="/Data/Images/images/@Product.Image" class="img1" id="@Product.ID">
+                    </div>
+                    <h2>
+                        <a href="@Url.Action("Details",new{Controller="Products",@Product.ID})">@Product.Name</a>
+                    </h2>
+                    <div class="product-carousel-price">
+                        <ins>@(Product.Price - Product.Price * Product.Discount / 100)</ins> <del>@Product.Price</del>
+                    </div>
+
+                    <div class="product-option-shop">
+                        <button class="add_to_cart_button add-to-cart" data-id="@Product.ID">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-pagination text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

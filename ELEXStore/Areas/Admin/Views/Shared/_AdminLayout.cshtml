@@ -1,0 +1,118 @@
+﻿@using Data.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='~/Content/Admin/Layout/css/fullcalendar.css'>
+    <link rel='stylesheet' href='~/Content/Admin/Layout/css/datatables/datatables.css'>
+    <link rel='stylesheet' href='~/Content/Admin/Layout/css/datatables/bootstrap.datatables.css'>
+    <link rel='stylesheet' href='~/Content/Admin/Layout/scss/chosen.css'>
+    <link href="~/Content/Admin/Layout/scss/font-awesome/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Admin/Layout/css/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel='stylesheet' href='~/Content/Admin/Layout/css/app.css'>
+    <link href="~/Content/Admin/Layout/favicon.ico" rel="shortcut icon">
+    <link href="~/Content/Admin/Layout/apple-touch-icon.png" rel="apple-touch-icon">
+    <title>ELEX Store</title>
+</head>
+<body>
+<div class="all-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
+                <a href="@Url.Action("Index","Home")" class="logo hidden-sm hidden-xs">
+                    <i class="icon-cloud-download"></i>
+                    <span>ELEX Store Admin</span>
+                </a>
+                <div class="relative-w">
+                    <ul class="side-menu side-menu-red">
+                        <li>
+                            <a href="@Url.Action("Index","Home")">
+                                <i class="icon-dashboard"></i> Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Categories")">
+                                <i class="icon-bar-chart"></i> Categories
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Suppliers")">
+                                <i class="icon-terminal"></i> Suppliers
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Products")">
+                                <i class="icon-code-fork"></i> Products
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Orders")">
+                                <i class="icon-th"></i> Orders
+                            </a>    
+                        </li>    
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="content-wrapper wood-wrapper">
+                <div class="content-inner">
+                    <div class="page-header page-header-red">
+                        <div class="header-links hidden-xs">
+                            <a href="@Url.Action("LogOut", "Login")"><i class="icon-signout"></i> Logout</a>
+                        </div>
+                        <h1>
+                            @RenderSection("TitleContent", true)
+                        </h1>
+                    </div>
+                    <div class="main-content">
+                        @if (TempData["AlertMessage"] != null)
+                        {
+                            <div id="AlertBox" class="alert @TempData["AlertType"]">
+                                @TempData["AlertMessage"]
+                            </div>
+                        }
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="~/Scripts/jquery-1.12.1.min.js"></script>
+    <script src="~/Content/JS/Plugin/BootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <script src='~/Content/Admin/Layout/js/jquery.sparkline.min.js'></script>
+    <script src='~/Content/Admin/Layout/js/bootstrap/tab.js'></script>
+    <script src='~/Content/Admin/Layout/js/bootstrap/dropdown.js'></script>
+    <script src='~/Content/Admin/Layout/js/bootstrap/collapse.js'></script>
+    <script src='~/Content/Admin/Layout/js/bootstrap/transition.js'></script>
+    <script src='~/Content/Admin/Layout/js/bootstrap/tooltip.js'></script>
+    <script src='~/Content/Admin/Layout/js/jquery.knob.js'></script>
+    <script src='~/Content/Admin/Layout/js/fullcalendar.min.js'></script>
+    <script src='~/Content/Admin/Layout/js/datatables/datatables.min.js'></script>
+    <script src='~/Content/Admin/Layout/js/chosen.jquery.min.js'></script>
+    <script src='~/Content/Admin/Layout/js/datatables/bootstrap.datatables.js'></script>
+    <script src='~/Content/Admin/Layout/js/raphael-min.js'></script>
+    <script src='~/Content/Admin/Layout/js/morris-0.4.3.min.js'></script>
+    <script src='~/Content/Admin/Layout/js/for_pages/color_settings.js'></script>
+    <script src='~/Content/Admin/Layout/js/application.js'></script>
+<script src='~/Content/Admin/Layout/js/for_pages/dashboard.js'></script>
+<script src="~/Content/JS/Plugin/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/JS/Plugin/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @RenderSection("jsFooter",false)
+</body>
+</html>
